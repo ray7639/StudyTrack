@@ -134,4 +134,4 @@ public partial class AddTaskViewModel : ObservableObject, IQueryAttributable
     {
         await Shell.Current.GoToAsync("..");
     }
-}
+} 

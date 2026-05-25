@@ -1,8 +1,11 @@
 namespace StudyTrack.ViewModels;
 
-public partial class LoginViewModel : ObservableObject
+using System.Linq;
+using Microsoft.Maui.Controls;
+
+public partial class LoginViewModel(AuthService authService) : ObservableObject
 {
-    private readonly AuthService _authService;
+    private readonly AuthService _authService = authService;
 
     [ObservableProperty]
     private string username = string.Empty;
@@ -13,19 +16,19 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty]
     private bool isBusy;
 
-    public LoginViewModel(AuthService authService)
-    {
-        _authService = authService;
-    }
-
     [RelayCommand]
     private async Task LoginAsync()
     {
         if (IsBusy) return;
 
+        // Capture Shell.Current and fallback Page once so we don't repeatedly dereference a possibly null Shell.Current.
+        var shell = Shell.Current;
+        Page? page = shell ?? Application.Current?.MainPage;
+
         if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
         {
-            await Shell.Current.DisplayAlert("Error", "Please enter username and password", "OK");
+            if (page != null)
+                await page.DisplayAlert("Error", "Please enter username and password", "OK");
             return;
         }
 
@@ -37,16 +40,35 @@ public partial class LoginViewModel : ObservableObject
 
             if (success)
             {
-                await Shell.Current.GoToAsync($"//{nameof(DashboardPage)}");
+                // Select the TabBar with Route="main" and activate its "dashboard" ShellContent.
+                // This avoids GoToAsync URI parsing issues and the "global routes cannot be the only page" problem.
+                var mainShellItem = shell?.Items.FirstOrDefault(i => i.Route == "main");
+                if (mainShellItem != null && shell != null)
+                {
+                    shell.CurrentItem = mainShellItem;
+
+                    var dashboardItem = mainShellItem.Items.FirstOrDefault(i => i.Route == "dashboard");
+                    if (dashboardItem != null)
+                    {
+                        mainShellItem.CurrentItem = dashboardItem;
+                        return;
+                    }
+                }
+
+                // Fallback: try a relative navigation by route name.
+                if (shell != null)
+                    await shell.GoToAsync(nameof(DashboardPage));
             }
             else
             {
-                await Shell.Current.DisplayAlert("Error", "Invalid username or password", "OK");
+                if (page != null)
+                    await page.DisplayAlert("Error", "Invalid username or password", "OK");
             }
         }
         catch (Exception ex)
         {
-            await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            if (page != null)
+                await page.DisplayAlert("Error", ex.Message, "OK");
         }
         finally
         {
@@ -57,6 +79,8 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async Task GoToRegisterAsync()
     {
-        await Shell.Current.GoToAsync(nameof(RegisterPage));
+        var shell = Shell.Current;
+        if (shell != null)
+            await shell.GoToAsync(nameof(RegisterPage));
     }
 }
