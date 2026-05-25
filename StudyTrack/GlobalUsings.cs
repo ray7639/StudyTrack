@@ -1,0 +1,13 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Collections.ObjectModel;
+global using System.ComponentModel;
+global using System.Linq;
+global using System.Threading.Tasks;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using SQLite;
+global using StudyTrack.Models;
+global using StudyTrack.Services;
+global using StudyTrack.ViewModels;
+global using StudyTrack.Views;

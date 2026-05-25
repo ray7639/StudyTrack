@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyTrack.ViewModels"
+             xmlns:models="clr-namespace:StudyTrack.Models"
+             x:Class="StudyTrack.Views.SubjectsPage"
+             x:DataType="vm:SubjectsViewModel"
+             Title="My Subjects"
+             BackgroundColor="#F9FAFB">
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <CollectionView Grid.Row="0" ItemsSource="{Binding Subjects}" Margin="20,10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Subject">
+                    <Border BackgroundColor="White" Padding="15" Margin="0,0,0,10">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <Grid ColumnSpacing="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <BoxView Grid.Column="0" Color="{Binding Color}" WidthRequest="4" HeightRequest="50" CornerRadius="2" />
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="{Binding SubjectName}" FontSize="16" FontAttributes="Bold" />
+                                <Label Text="{Binding Instructor}" FontSize="14" TextColor="#6B7280" />
+                                <Label Text="{Binding TaskCount, StringFormat='{0} tasks'}" FontSize="12" TextColor="#3B82F6" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Grid.Row="1" Text="+ Add Subject" Command="{Binding AddSubjectCommand}" BackgroundColor="#3B82F6" TextColor="White" Padding="15" Margin="20" />
+    </Grid>
+</ContentPage>

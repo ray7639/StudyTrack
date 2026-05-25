@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="StudyTrack.Views.AboutPage"
+             Title="About"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="20">
+            <Border StrokeThickness="0" BackgroundColor="#3B82F6" WidthRequest="80" HeightRequest="80" HorizontalOptions="Center" Margin="0,20,0,0">
+                <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                <Label Text="📚" FontSize="40" HorizontalOptions="Center" VerticalOptions="Center" />
+            </Border>
+            <Label Text="StudyTrack" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Label Text="Version 1.0.0" FontSize="14" TextColor="#6B7280" HorizontalOptions="Center" />
+            <BoxView HeightRequest="1" Color="#E5E7EB" Margin="0,10" />
+            <Label Text="Help &amp; Guide" FontSize="18" FontAttributes="Bold" />
+            <Label Text="• Create tasks with priorities and due dates&#x0a;• Organize by subjects/courses&#x0a;• Track your progress with statistics&#x0a;• Take notes for each subject&#x0a;• Search and filter tasks easily" FontSize="14" TextColor="#4B5563" />
+            <Label Text="FAQ" FontSize="18" FontAttributes="Bold" Margin="0,20,0,0" />
+            <Label Text="Q: How do I create a task?&#x0a;A: Click the '+ Add Task' button on the dashboard or tasks page.&#x0a;&#x0a;Q: Can I edit a task?&#x0a;A: Yes, tap on any task to view details and click Edit.&#x0a;&#x0a;Q: How do I mark a task as complete?&#x0a;A: Check the checkbox next to the task or open task details." FontSize="14" TextColor="#4B5563" />
+            <BoxView HeightRequest="1" Color="#E5E7EB" Margin="0,20" />
+            <Label Text="Developed for educational purposes" FontSize="12" TextColor="#9CA3AF" HorizontalOptions="Center" />
+            <Label Text="© 2026 StudyTrack" FontSize="12" TextColor="#9CA3AF" HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

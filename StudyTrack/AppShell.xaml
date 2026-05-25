@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="StudyTrack.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:StudyTrack.Views"
+    FlyoutBackgroundColor="#3B82F6">
+
+    <!-- Splash Screen -->
+    <ShellContent
+        Title="Splash"
+        Route="splash"
+        ContentTemplate="{DataTemplate views:SplashPage}"
+        FlyoutItemIsVisible="False" />
+
+    <!-- Login/Register -->
+    <ShellContent
+        Title="Login"
+        Route="login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        FlyoutItemIsVisible="False" />
+
+    <ShellContent
+        Title="Register"
+        Route="register"
+        ContentTemplate="{DataTemplate views:RegisterPage}"
+        FlyoutItemIsVisible="False" />
+
+    <!-- Main App Tabs -->
+    <TabBar Route="main">
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent
+                Title="Dashboard"
+                Route="dashboard"
+                ContentTemplate="{DataTemplate views:DashboardPage}" />
+        </Tab>
+
+        <Tab Title="Tasks" Icon="tasks.png">
+            <ShellContent
+                Title="Tasks"
+                Route="tasks"
+                ContentTemplate="{DataTemplate views:TasksPage}" />
+        </Tab>
+
+        <Tab Title="Subjects" Icon="subjects.png">
+            <ShellContent
+                Title="Subjects"
+                Route="subjects"
+                ContentTemplate="{DataTemplate views:SubjectsPage}" />
+        </Tab>
+
+        <Tab Title="Notes" Icon="notes.png">
+            <ShellContent
+                Title="Notes"
+                Route="notes"
+                ContentTemplate="{DataTemplate views:NotesPage}" />
+        </Tab>
+
+        <Tab Title="Profile" Icon="profile.png">
+            <ShellContent
+                Title="Profile"
+                Route="profile"
+                ContentTemplate="{DataTemplate views:ProfilePage}" />
+        </Tab>
+    </TabBar>
+
+    <!-- Other Pages (not in tabs) -->
+    <ShellContent
+        Title="Add Task"
+        Route="addtask"
+        ContentTemplate="{DataTemplate views:AddTaskPage}"
+        FlyoutItemIsVisible="False" />
+
+    <ShellContent
+        Title="Task Detail"
+        Route="taskdetail"
+        ContentTemplate="{DataTemplate views:TaskDetailPage}"
+        FlyoutItemIsVisible="False" />
+
+    <ShellContent
+        Title="About"
+        Route="about"
+        ContentTemplate="{DataTemplate views:AboutPage}"
+        FlyoutItemIsVisible="False" />
+
+</Shell>

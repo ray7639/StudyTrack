@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyTrack.ViewModels"
+             x:Class="StudyTrack.Views.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
+             Title="Create Account"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="15">
+
+            <!-- Logo -->
+            <Border StrokeThickness="0"
+                    BackgroundColor="#3B82F6"
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    HorizontalOptions="Center"
+                    Margin="0,20,0,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <Label Text="📚"
+                       FontSize="35"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!-- Title -->
+            <Label Text="Create Account"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1F2937"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Start your study journey"
+                   FontSize="14"
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,20" />
+
+            <!-- Full Name -->
+            <Border StrokeThickness="2"
+                    Stroke="#E5E7EB"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Entry Placeholder="Full Name"
+                       Text="{Binding FullName}"
+                       TextColor="#1F2937" />
+            </Border>
+
+            <!-- Username -->
+            <Border StrokeThickness="2"
+                    Stroke="#E5E7EB"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Entry Placeholder="Username"
+                       Text="{Binding Username}"
+                       TextColor="#1F2937" />
+            </Border>
+
+            <!-- Email -->
+            <Border StrokeThickness="2"
+                    Stroke="#E5E7EB"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Entry Placeholder="Email"
+                       Text="{Binding Email}"
+                       Keyboard="Email"
+                       TextColor="#1F2937" />
+            </Border>
+
+            <!-- Password -->
+            <Border StrokeThickness="2"
+                    Stroke="#E5E7EB"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Entry Placeholder="Password"
+                       Text="{Binding Password}"
+                       IsPassword="True"
+                       TextColor="#1F2937" />
+            </Border>
+
+            <!-- Confirm Password -->
+            <Border StrokeThickness="2"
+                    Stroke="#E5E7EB"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <Entry Placeholder="Confirm Password"
+                       Text="{Binding ConfirmPassword}"
+                       IsPassword="True"
+                       TextColor="#1F2937" />
+            </Border>
+
+            <!-- Create Account Button -->
+            <Button Text="Create Account"
+                    Command="{Binding RegisterCommand}"
+                    BackgroundColor="#3B82F6"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    Padding="15"
+                    Margin="0,20,0,0" />
+
+            <!-- Cancel Button -->
+            <Button Text="Cancel"
+                    Command="{Binding BackToLoginCommand}"
+                    BackgroundColor="#F3F4F6"
+                    TextColor="#4B5563"
+                    FontSize="16"
+                    Padding="15" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

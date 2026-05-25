@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyTrack.ViewModels"
+             x:Class="StudyTrack.Views.AddTaskPage"
+             x:DataType="vm:AddTaskViewModel"
+             Title="{Binding IsEditMode, Converter={StaticResource BoolToTitleConverter}}"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <Entry Placeholder="Task Title" Text="{Binding Task.Title}" />
+            <Picker ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}" ItemDisplayBinding="{Binding SubjectName}" Title="Select Subject" />
+            <DatePicker Date="{Binding Task.DueDate}" Format="D" />
+            <TimePicker Time="{Binding Task.DueTime}" />
+            <Picker ItemsSource="{Binding PriorityOptions}" SelectedItem="{Binding Task.Priority}" Title="Priority" />
+            <Editor Placeholder="Description (optional)" Text="{Binding Task.Description}" HeightRequest="100" />
+            <Button Text="{Binding IsEditMode, Converter={StaticResource BoolToButtonTextConverter}}" Command="{Binding SaveTaskCommand}" BackgroundColor="#3B82F6" TextColor="White" Padding="15" />
+            <Button Text="Cancel" Command="{Binding CancelCommand}" BackgroundColor="#F3F4F6" TextColor="#6B7280" Padding="15" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

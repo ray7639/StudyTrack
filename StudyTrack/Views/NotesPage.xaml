@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyTrack.ViewModels"
+             xmlns:models="clr-namespace:StudyTrack.Models"
+             x:Class="StudyTrack.Views.NotesPage"
+             x:DataType="vm:NotesViewModel"
+             Title="My Notes"
+             BackgroundColor="#F9FAFB">
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Entry Grid.Row="0" Placeholder="Search notes..." Text="{Binding SearchQuery}" Margin="20,10" />
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Notes}" Margin="20,0">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Note">
+                    <Border BackgroundColor="White" Padding="15" Margin="0,0,0,10">
+                        <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotesViewModel}}, Path=ViewNoteCommand}" CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding Title}" FontSize="16" FontAttributes="Bold" />
+                            <Label Text="{Binding PreviewText}" FontSize="14" TextColor="#6B7280" LineBreakMode="TailTruncation" MaxLines="2" />
+                            <Label Text="{Binding LastModifiedFormatted}" FontSize="12" TextColor="#9CA3AF" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Grid.Row="2" Text="+ Add Note" Command="{Binding AddNoteCommand}" BackgroundColor="#3B82F6" TextColor="White" Padding="15" Margin="20" />
+    </Grid>
+</ContentPage>

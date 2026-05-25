@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:StudyTrack.ViewModels"
+             x:Class="StudyTrack.Views.TaskDetailPage"
+             x:DataType="vm:TaskDetailViewModel"
+             Title="Task Details"
+             BackgroundColor="#F9FAFB">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Border BackgroundColor="White" Padding="20">
+                <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="{Binding Task.Title}" FontSize="24" FontAttributes="Bold" />
+                    <Label Text="{Binding Task.SubjectName}" FontSize="16" TextColor="#6B7280" />
+                    <Label Text="{Binding Task.DueDateFormatted}" FontSize="14" TextColor="#3B82F6" />
+                    <Label Text="{Binding Task.Priority}" FontSize="14" TextColor="{Binding Task.PriorityColor}" />
+                </VerticalStackLayout>
+            </Border>
+            <Border BackgroundColor="White" Padding="20">
+                <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Description" FontSize="16" FontAttributes="Bold" />
+                    <Label Text="{Binding Task.Description}" FontSize="14" TextColor="#6B7280" />
+                </VerticalStackLayout>
+            </Border>
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="✏️ Edit" Command="{Binding EditTaskCommand}" BackgroundColor="#3B82F6" TextColor="White" />
+                <Button Grid.Column="1" Text="🗑️ Delete" Command="{Binding DeleteTaskCommand}" BackgroundColor="#EF4444" TextColor="White" />
+            </Grid>
+            <Button Text="{Binding Task.IsCompleted, Converter={StaticResource BoolToCompleteTextConverter}}" 
+                    Command="{Binding ToggleCompleteCommand}" 
+                    BackgroundColor="{Binding Task.IsCompleted, Converter={StaticResource BoolToColorConverter}}" 
+                    TextColor="White" 
+                    Padding="15" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
