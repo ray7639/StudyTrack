@@ -6,7 +6,7 @@ public partial class ProfileViewModel : ObservableObject
     private readonly AuthService _authService;
 
     [ObservableProperty]
-    private User currentUser;
+    private User? currentUser;
 
     [ObservableProperty]
     private int totalTasks;
@@ -56,9 +56,10 @@ public partial class ProfileViewModel : ObservableObject
     [RelayCommand]
     private async Task EditProfileAsync()
     {
-        string newName = await Shell.Current.DisplayPromptAsync("Edit Profile", "Enter new name:", initialValue: CurrentUser.FullName);
+        string initial = CurrentUser?.FullName ?? string.Empty;
+        string newName = await Shell.Current.DisplayPromptAsync("Edit Profile", "Enter new name:", initialValue: initial);
 
-        if (string.IsNullOrWhiteSpace(newName)) return;
+        if (string.IsNullOrWhiteSpace(newName) || CurrentUser == null) return;
 
         CurrentUser.FullName = newName;
         await _databaseService.SaveUserAsync(CurrentUser);

@@ -11,8 +11,9 @@ public partial class AddTaskViewModel : ObservableObject, IQueryAttributable
     [ObservableProperty]
     private ObservableCollection<Subject> subjects = new();
 
+    // Make this nullable since FirstOrDefault can return null
     [ObservableProperty]
-    private Subject selectedSubject;
+    private Subject? selectedSubject;
 
     [ObservableProperty]
     private bool isBusy;
@@ -79,7 +80,7 @@ public partial class AddTaskViewModel : ObservableObject, IQueryAttributable
             await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
         }
     }
-
+     
     [RelayCommand]
     private async Task SaveTaskAsync()
     {
@@ -88,6 +89,13 @@ public partial class AddTaskViewModel : ObservableObject, IQueryAttributable
         if (string.IsNullOrWhiteSpace(Task.Title))
         {
             await Shell.Current.DisplayAlert("Error", "Task title is required", "OK");
+            return;
+        }
+
+        // Guard against a null CurrentUser to avoid dereferencing a possibly null reference (CS8602)
+        if (_authService.CurrentUser == null)
+        {
+            await Shell.Current.DisplayAlert("Error", "User not logged in", "OK");
             return;
         }
 

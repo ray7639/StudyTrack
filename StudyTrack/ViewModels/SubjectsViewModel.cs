@@ -52,6 +52,13 @@ public partial class SubjectsViewModel : ObservableObject
     [RelayCommand]
     private async Task AddSubjectAsync()
     {
+        // Guard against a null CurrentUser to avoid CS8602 (possible null dereference).
+        if (_authService.CurrentUser == null)
+        {
+            await Shell.Current.DisplayAlert("Error", "No user is logged in.", "OK");
+            return;
+        }
+
         string subjectName = await Shell.Current.DisplayPromptAsync("New Subject", "Enter subject name:");
 
         if (string.IsNullOrWhiteSpace(subjectName)) return;

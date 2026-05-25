@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="StudyTrack/StudyTrack.csproj" />
+  <Project Path="StudyTrack/StudyTrack.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

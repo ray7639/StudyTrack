@@ -30,9 +30,12 @@ public partial class TasksViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (query.ContainsKey("query"))
+        if (query == null) return;
+
+        if (query.TryGetValue("query", out var q))
         {
-            SearchQuery = query["query"].ToString();
+            // Guard against null and ensure SearchQuery remains non-nullable
+            SearchQuery = q?.ToString() ?? string.Empty;
         }
     }
 
@@ -50,10 +53,11 @@ public partial class TasksViewModel : ObservableObject, IQueryAttributable
 
         try
         {
-            var taskList = await _databaseService.GetTasksAsync(_authService.CurrentUser.UserId);
+            // Make sure we handle a possible null return from the database service
+            var taskList = await _databaseService.GetTasksAsync(_authService.CurrentUser.UserId) ?? new List<TodoTask>();
 
             Tasks.Clear();
-            foreach (var task in taskList)
+            foreach (var task in taskList.Where(t => t != null))
             {
                 Tasks.Add(task);
             }
@@ -84,10 +88,11 @@ public partial class TasksViewModel : ObservableObject, IQueryAttributable
 
         if (!string.IsNullOrWhiteSpace(SearchQuery))
         {
+            // Null-safe string checks to avoid null reference dereferences
             filtered = filtered.Where(t =>
-                t.Title.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
-                t.Description.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
-                t.SubjectName.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)
+                (t.Title ?? string.Empty).Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (t.Description ?? string.Empty).Contains(SearchQuery, StringComparison.OrdinalIgnoreCase) ||
+                (t.SubjectName ?? string.Empty).Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)
             ).ToList();
         }
 

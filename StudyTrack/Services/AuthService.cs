@@ -3,14 +3,14 @@ namespace StudyTrack.Services;
 public class AuthService
 {
     private readonly DatabaseService _databaseService;
-    private User _currentUser;
+    private User? _currentUser;
 
     public AuthService(DatabaseService databaseService)
     {
         _databaseService = databaseService;
     }
 
-    public User CurrentUser => _currentUser;
+    public User? CurrentUser => _currentUser;
 
     public bool IsLoggedIn => _currentUser != null;
 

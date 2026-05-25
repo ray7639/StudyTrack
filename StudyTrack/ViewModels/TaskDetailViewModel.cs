@@ -6,7 +6,7 @@ public partial class TaskDetailViewModel : ObservableObject, IQueryAttributable
     private readonly AuthService _authService;
 
     [ObservableProperty]
-    private TodoTask task;
+    private TodoTask? task;
 
     [ObservableProperty]
     private bool isBusy;
@@ -19,9 +19,12 @@ public partial class TaskDetailViewModel : ObservableObject, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if (query.ContainsKey("Task"))
+        if (query == null) return;
+
+        // Safely get the "Task" entry and only assign when it's a non-null TodoTask.
+        if (query.TryGetValue("Task", out var value) && value is TodoTask taskValue)
         {
-            Task = query["Task"] as TodoTask;
+            Task = taskValue;
         }
     }
 

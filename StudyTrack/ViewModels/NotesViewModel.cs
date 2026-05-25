@@ -28,13 +28,16 @@ public partial class NotesViewModel : ObservableObject
     [RelayCommand]
     private async Task LoadNotesAsync()
     {
-        if (IsBusy || _authService.CurrentUser == null) return;
+        if (IsBusy) return;
+
+        var currentUser = _authService.CurrentUser;
+        if (currentUser == null) return;
 
         IsBusy = true;
 
         try
         {
-            var noteList = await _databaseService.GetNotesAsync(_authService.CurrentUser.UserId);
+            var noteList = await _databaseService.GetNotesAsync(currentUser.UserId);
 
             if (!string.IsNullOrWhiteSpace(SearchQuery))
             {
@@ -63,6 +66,13 @@ public partial class NotesViewModel : ObservableObject
     [RelayCommand]
     private async Task AddNoteAsync()
     {
+        var currentUser = _authService.CurrentUser;
+        if (currentUser == null)
+        {
+            await Shell.Current.DisplayAlert("Error", "You must be logged in to add notes.", "OK");
+            return;
+        }
+
         string title = await Shell.Current.DisplayPromptAsync("New Note", "Enter note title:");
 
         if (string.IsNullOrWhiteSpace(title)) return;
@@ -73,7 +83,7 @@ public partial class NotesViewModel : ObservableObject
 
         var note = new Note
         {
-            UserId = _authService.CurrentUser.UserId,
+            UserId = currentUser.UserId,
             Title = title,
             Content = content,
             CreatedDate = DateTime.Now,
