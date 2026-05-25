@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+	<!-- Replace the placeholders with your actual keystore passwords -->
+	<AndroidSigningKeyPass>ricky2001</AndroidSigningKeyPass>
+	<AndroidSigningStorePass>ricky2001</AndroidSigningStorePass>
+  </PropertyGroup>
+</Project>
